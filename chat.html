@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Bonito - Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f9d423, #ff4e50);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: #fff;
+      width: 400px;
+      max-width: 90vw;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    /* Login Screen */
+    #loginScreen {
+      flex: 1;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+    }
+
+    #loginScreen h2 {
+      color: #f9d423;
+      font-weight: 700;
+      font-size: 2rem;
+      margin: 0;
+      letter-spacing: 1.5px;
+    }
+
+    #loginForm {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    #loginForm input[type="text"] {
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      border: 2px solid #f9d423;
+      border-radius: 30px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    #loginForm input[type="text"]:focus {
+      border-color: #ff4e50;
+    }
+
+    #loginForm button {
+      padding: 15px 0;
+      background: #f9d423;
+      border: none;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(249, 212, 35, 0.6);
+      transition: background 0.3s ease;
+    }
+
+    #loginForm button:hover {
+      background: #ff4e50;
+      color: #fff;
+    }
+
+    /* Chat Screen */
+    #chatScreen {
+      flex: 1;
+      display: none;
+      flex-direction: column;
+      background: #fff8e1;
+      color: #333;
+      border-radius: 0 0 15px 15px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #f9d423;
+      padding: 20px;
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-align: center;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      color: #333;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      scrollbar-width: thin;
+      scrollbar-color: #f9d423 transparent;
+      background: #fff8e1;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background-color: #f9d423;
+      border-radius: 10px;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 12px 18px;
+      border-radius: 20px;
+      font-size: 1rem;
+      line-height: 1.3;
+      word-wrap: break-word;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      animation: fadeIn 0.3s ease forwards;
+    }
+
+    .message.user {
+      background: #f9d423;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .message.bot {
+      background: #fff;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+      color: #555;
+      font-weight: 400;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 15px 20px;
+      background: #f9d423;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      border-radius: 0 0 15px 15px;
+    }
+
+    .chat-input-area input[type="text"] {
+      flex: 1;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      outline: none;
+      background: #fff;
+      color: #333;
+      transition: background 0.3s ease;
+    }
+
+    .chat-input-area input[type="text"]::placeholder {
+      color: #ccc;
+    }
+
+    .chat-input-area input[type="text"]:focus {
+      background: #fff9c4;
+    }
+
+    .chat-input-area button {
+      margin-left: 15px;
+      background: #fff;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 25px;
+      color: #f9d423;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(249, 212, 35, 0.6);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .chat-input-area button:hover {
+      background: #f9d423;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Chat bonito com login">
+    <!-- Login Screen -->
+    <section id="loginScreen" aria-label="Tela de login">
+      <h2>Bem-vindo!</h2>
+      <form id="loginForm" aria-label="Formulário de login">
+        <input type="text" id="usernameInput" placeholder="Digite seu nome" autocomplete="off" required aria-required="true" />
+        <button type="submit" aria-label="Entrar no chat">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Chat Screen -->
+    <section id="chatScreen" aria-label="Tela de chat">
+      <header class="chat-header" id="chatHeader">Chat Bonito</header>
+      <div class="chat-messages" id="chatMessages" aria-live="polite" aria-relevant="additions"></div>
+      <form class="chat-input-area" id="chatForm" aria-label="Enviar mensagem">
+        <input type="text" id="chatInput" placeholder="Digite sua mensagem..." autocomplete="off" required aria-required="true" />
+        <button type="submit" aria-label="Enviar mensagem">Enviar</button>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('usernameInput');
+    const loginScreen = document.getElementById('loginScreen');
+    const chatScreen = document.getElementById('chatScreen');
+    const chatHeader = document.getElementById('chatHeader');
+    const chatForm = document.getElementById('chatForm');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+
+    let username = '';
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = usernameInput.value.trim();
+      if (name === '') return;
+      username = name;
+      chatHeader.textContent = `Chat Bonito - ${username}`;
+      loginScreen.style.display = 'none';
+      chatScreen.style.display = 'flex';
+      chatInput.focus();
+      addMessage(`Bem-vindo ao chat, ${username}!`, 'bot');
+    });
+
+    function addMessage(text, sender) {
+      const messageElem = document.createElement('div');
+      messageElem.classList.add('message', sender);
+      messageElem.textContent = text;
+      chatMessages.appendChild(messageElem);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (message === '') return;
+      addMessage(message, 'user');
+      chatInput.value = '';
+      // Removed automatic bot response as requested
+    });
+  </script>
+</body>
+</html>
